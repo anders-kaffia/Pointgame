@@ -20,7 +20,7 @@ class User{
 
 			$mysqli->query($query) or die($mysqli->error);
 			
-			return ['redirect' => '/Pointersgame#login'];
+			return ['redirect' => '/Pointgame#login'];
 		}
 	}	
 
@@ -74,7 +74,7 @@ class User{
             session_unset();
             session_destroy();
             
-            return ['redirect' => '/Pointersgame'];
+            return ['redirect' => '/Pointgame'];
 				 				
 			} 
 		
