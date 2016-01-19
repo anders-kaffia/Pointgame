@@ -26,8 +26,7 @@
 </head>
 
     <body id="page-top" class="index">
-    <!-- Navigation -->
-    {% include "navbar.html" %}    
+  
          
     <!-- if user is logged in -->
     {%if user %}
@@ -72,6 +71,8 @@
 
         <!-- if no user is logged in -->
         {% else %}
+            <!-- Navigation -->
+    {% include "navbar.html" %}  
             <!-- Header Section -->
             {% include "header.html" %}
             <!-- Login Section -->
@@ -82,7 +83,7 @@
             <!-- About Section -->
             {% include "about.html" %}
             <!-- Contact Section -->
-            <!-- include "contact.html"  -->
+            include "contact.html" 
             <!-- Footer -->
             {% include "footer.html" %}
 
