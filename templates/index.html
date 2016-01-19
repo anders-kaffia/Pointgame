@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{title}}</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="templates/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="templates/css/freelancer.css" rel="stylesheet">
+    <!-- Own CSS -->
+    <link href="templates/css/style.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="templates/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Scripts -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+
+    <body id="page-top" class="index">
+    <!-- Navigation -->
+    {% include "navbar.html" %}    
+         
+    <!-- if user is logged in -->
+    {%if user %}
+        <!-- Navigation User LoggedIn -->
+        {% include "navbarLoggedIn.html" %}
+
+        <!-- Prints all Todolists for current user -->
+        {% for todolist in todolists %}
+            {% include "showallusertodolist.html" %} 
+        {% endfor %}
+
+        <!-- Shows single Todolist -->
+        {% if single %}
+            {% include "showtodolist.html" %} 
+        {% endif %}
+
+        <!-- Creates new Todolist -->
+        {% include "createtodolist.html" %}
+        
+        <!-- Shows total score for current user -->
+        Total Score:
+        {% include "showtotalpoints.html" %}
+
+        <!-- Contact Section -->
+        <!--include "contact.html" -->
+
+
+        <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
+        <!-- removed Twig signs!!
+        if user 
+           
+            for listitem in listitems 
+                 include "showlistitems.html"         
+            endfor 
+            include "tips.html" 
+            else 
+                include "header.html" 
+                include "login.html" 
+                include "inspiration.html" 
+        endif
+        -->
+
+        <!-- if no user is logged in -->
+        {% else %}
+            <!-- Header Section -->
+            {% include "header.html" %}
+            <!-- Login Section -->
+            {% include "login.html" %}
+            {% include "createaccount.html" %}
+            <!-- Inspiration Section -->
+            {% include "inspiration.html" %}
+            <!-- About Section -->
+            {% include "about.html" %}
+            <!-- Contact Section -->
+            <!-- include "contact.html"  -->
+            <!-- Footer -->
+            {% include "footer.html" %}
+
+    {% endif %}
+    <!-- End if user -->
+ 
+        <!-- If Freemium user is logged in, show following -->
+        {% if freemium %}
+            {% include "userheader.html" %}
+        {% endif %}
+        <!-- / Freemium user specified content -->
+
+        <!-- If premium user is logged in, show following -->
+        {% if premium %}
+            {% include "userheader.html" %}
+        {% endif %}
+        <!-- / premium user specified content -->
+
+
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+        <div class="scroll-top page-scroll visible-xs visible-sm">
+            <a class="btn btn-primary" href="#page-top">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+
+        <!-- jQuery -->
+        <script src="templates/js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="templates/js/bootstrap.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="templates/js/classie.js"></script>
+        <script src="templates/js/cbpAnimatedHeader.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="templates/js/freelancer.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,41 @@
+
+    <section>
+        <div class="container">
+     
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <form action='?/Todolist/createtodolist' method="post" name="createItem" >
+                     
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <h2>Create New PointGame list</h2>
+                                <label>New PointGame list!</label>
+                                <input  type="text"  name='createtodolist' value='{{todolist.user_id}}' class="form-control" placeholder="Name" id="email">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 ">
+                                <input type='hidden' name='post_id' value='{{todolist.id}}'>
+                            </div>
+                        </div>
+                        <p>Välj då:</p>
+                        <select name="todolisttype">
+                            <option value="day">Day</option>
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
+                        </select>
+                        <br>
+                        <div ></div>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg">Add new list!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</section>
