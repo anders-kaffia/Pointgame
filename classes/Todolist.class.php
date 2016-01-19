@@ -19,6 +19,8 @@ class Todolist{
 				VALUES ('$todoname', ".$_SESSION['user']['id'].", '$type', now());
 			";
 
+
+
 			$mysqli->query($query);
 
 			return ['redirect' =>  '?/Todolist/all'];
@@ -77,6 +79,17 @@ class Todolist{
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
+
+		 //	$result2 = $mysqli->query(" SELECT expiration FROM todolist ");
+		 //	$todolistTime = $result2->fetch_assoc()){
+		 		
+		 		//geExpdate (todolsityp)
+					// if (week) gör ngt 
+					// 
+					// eelsefi (Day)
+		 	
+		 	//kontrol för tide kvar. getweek ()
+
 		 	#18. Queryn körs mot databasen och vi väljer nedan att returnera något som vi kallar för 'post'. 
 			#Denna 'post' är kopplat till Twig. Så när denna return körs returneras värdet 'posts' tillbaka till index.php
 		 	#Gå tillbaka till index.php och följ punkt #19.
@@ -124,6 +137,7 @@ class Todolist{
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
 
+	/*
 	private function getExpirationDate($type) {
 
 	}
@@ -143,7 +157,7 @@ class Todolist{
 	private function getDayExpiration() {
 
 		$this->day = idate('d', $timestamp);
-		if($this->day + strtotime('+24 hours'))@@
+		if($this->day + strtotime('+24 hours'))
 			
 		);
 
@@ -155,5 +169,8 @@ class Todolist{
 		);
 
 	}
+	*/
 
 }
+
+
