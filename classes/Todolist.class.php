@@ -151,4 +151,36 @@ class Todolist{
 		
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
+
+	public static function dashboard($params){
+		 	$mysqli = DB::getInstance();
+		 	
+		 	# TOTAL SCORE FROM CURRENT USER:
+		 	$result = $mysqli->query("
+		 					SELECT SUM(score)
+							FROM donelistitem, todolist, user
+							WHERE donelistitem.todolist_id = todolist.id
+							AND todolist.user_id = user.id
+							AND user.id = ".$_SESSION['user']['id']."
+		 					");
+
+		 	# TOTAL SCORE FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
+		 	$result2 = $mysqli->query("
+		 					SELECT SUM(score)
+							FROM donelistitem, todolist
+							WHERE donelistitem.todolist_id = todolist.id
+							AND todolist.id = ".$id."
+		 					");
+		 	# TOTAL NUMBER OF LISTITEMS FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
+		 	$result3 = $mysqli->query("
+							SELECT COUNT(listitem.id)
+							FROM listitem, todolist
+							WHERE listitem.todolist_id = todolist.id
+							AND todolist.id = ".$id."
+		 		")
+
+		 	}
+
+		 	return ['todolists' => $todolists];
+	}
 }
