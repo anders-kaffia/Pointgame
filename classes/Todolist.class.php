@@ -1,6 +1,6 @@
 
 <?php
-	echo "apa";
+
 class Todolist{
 
 	private $week, $day, $month;
@@ -91,11 +91,11 @@ class Todolist{
 	public static function all($params){
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
-		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."  ");
-
-
-		 	$result2 = $mysqli->query(" SELECT expiration FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."  ");
-
+		 	$deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
+		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()");
+		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."
+		 					 	
+		 	  ");
 
 
 
@@ -103,6 +103,7 @@ class Todolist{
 		 		$todolists[] = $todolist;
 		 	}
 
+<<<<<<< HEAD
 		 	while($exp = $result2->fetch_assoc()){
 		 		$exps[] = $exp;
 		 		/*var_dump($exp);
@@ -115,6 +116,9 @@ class Todolist{
 			#Denna 'post' är kopplat till Twig. Så när denna return körs returneras värdet 'posts' tillbaka till index.php
 		 	#Gå tillbaka till index.php och följ punkt #19.
 		 	return ['todolists' => $todolists, 'exp' => $exps];
+=======
+		 	return ['todolists' => $todolists];
+>>>>>>> origin/master
 		
 	}
 	

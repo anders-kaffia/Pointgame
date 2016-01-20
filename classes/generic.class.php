@@ -16,4 +16,8 @@ class Generic {
 	public static function inspoContent($params){
 		return ['template' => 'inspoinfo.html'];
 	}
+
+	public static function premiumPage($params){
+		return ['template' => 'premiumPage.html'];
+	}
 }
