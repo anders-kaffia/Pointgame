@@ -24,6 +24,21 @@ class User{
 		}
 	}	
 
+	public static function premiumsuccess($params){
+
+			$mysqli = DB::getInstance();
+			$query = "
+				UPDATE user
+				SET premium = 1
+				WHERE user.id = ".$_SESSION['user']['id']."
+
+			";
+
+			$mysqli->query($query);
+
+
+	}
+
 
 	public static function login($params){
 		
