@@ -84,7 +84,7 @@ class Todolist{
 			 	$doneitems[] = $doneitem;
 			 }	 	
 
-	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'single' => 'single', ];  
+	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'template' => 'singleindex.html', ];  
 		
 	}
 

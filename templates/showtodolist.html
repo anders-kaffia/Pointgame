@@ -1,10 +1,28 @@
 
-    <section>
+    
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
+                <div class="col-lg-12 text-center ">
+                  <div class="row">
+                    <div class="col-lg-12">
+                           
+
+                    <div class="col-lg-12 "><h3><a href="#">Completed Items:</a> </h3>
+                     {% for donelistitem in donelistitems %}
+                    {% include "showdoneitems.html" %}
+                    {% endfor %}
+                    
+            
+                
+            <br>
+           
+            
+                </div>
+           
+            </div>
+
                         <h1><a placeholder="Add item to list!" href='?/Todolist/single/{{todolist.id}}'>{{todolist.name}}</a></h1>
-                    <hr class="star-primary">
+                     <hr class="star-primary">
                     <div class="row">
                     <div class="col-lg-12">
                 
@@ -14,10 +32,6 @@
 				
 
 					
-					 {% for donelistitem in donelistitems %}
-					{% include "showdoneitems.html" %}
-					{% endfor %}
-					
 			
 				
 
@@ -26,19 +40,19 @@
            
             </div>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12 ">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                     <form action='?/Todolist/createlistitem' method="post" name="createItem" >
                         <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <div class="form-group col-xs-7 col-xs-offset-3 text-center floating-label-form-group controls">
                                 <label>Name</label>
                                 <input type="text"  name='createItem' class="form-control" placeholder="Name" id="name"> 
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <div class="form-group col-xs-7 col-xs-offset-3 floating-label-form-group controls">
                                 <label>Points</label>
                                 <input  type="text" name='createpoints' class="form-control" placeholder="Points" id="email"
                                 <p class="help-block text-danger"></p>
@@ -61,4 +75,3 @@
                 </div>
             </div>
         </div>
-</section>
