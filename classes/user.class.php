@@ -36,7 +36,7 @@ class User{
 
 			$mysqli->query($query);
 
-
+			return['template' => 'premiumsuccess.html'];
 	}
 
 
