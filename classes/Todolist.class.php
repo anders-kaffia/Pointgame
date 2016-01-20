@@ -95,6 +95,15 @@ class Todolist{
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
 		 	$checked = Todolist::checkifpremium($params);
+
+		 	//KOLL FÖR DASHBOARDEN! typ...
+		 	/*if ($checked == TRUE) {
+		 		$a = Todolist::dashboard($stj);
+		 		echo "hej fan";
+		 		var_dump($a);
+		 		die();
+		 	}*/
+
 		 	/* $deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
 		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()"); */
 		 	$result = $mysqli->query("
@@ -187,7 +196,7 @@ class Todolist{
 		}
 
 	public static function dashboard($params){
-		 	$mysqli = DB::getInstance();
+		 /*	$mysqli = DB::getInstance();
 		 	
 		 	# TOTAL SCORE FROM CURRENT USER:
 		 	$result = $mysqli->query("
@@ -214,8 +223,10 @@ class Todolist{
 		 		");
 
 		 	
-
-		 	return ['todolists' => $todolists];
+		 	$dash1 = $result1->fetch_assoc();
+		 	$dash2 = $result2->fetch_assoc();
+		 	$dash3 = $result3->fetch_assoc();
+		 	return ['resultalt1' => $dash1, 'resultat2' => $dash2, 'resultat3' => $dash3]; */
 	}
 
 }
