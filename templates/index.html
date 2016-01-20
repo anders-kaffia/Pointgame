@@ -32,7 +32,8 @@
     {%if user %}
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
-
+        <!-- KALLE, TAG EJ BORT DENNA! -->
+        {% include "templatepushdownforindex.html" %}
         <!-- Prints all Todolists for current user -->
         {% for todolist in todolists %}
             {% include "showallusertodolist.html" %} 
