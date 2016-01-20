@@ -105,8 +105,8 @@ class Todolist{
 
 		 	while($exp = $result2->fetch_assoc()){
 		 		$exps[] = $exp;
-		 		var_dump($exp);
-		 	die();
+		 		/*var_dump($exp);
+		 	die();*/
 		 	}
 
 			
