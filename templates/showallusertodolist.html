@@ -9,10 +9,10 @@
                             <div class="form-group col-xs-12 floating-label-form-group controls">
 
 
-                            <h1><a class="col-md-4 col-md-offset-4" href='?/Todolist/single/{{todolist.id}}'>{{todolist.name}}</a>
-                             <a >{{todolist.expiration}}</a>
+                            <h4><a class="col-md-4 col-md-offset-4" href='?/Todolist/single/{{todolist.id}}'>{{todolist.name}}
+                            Går ut: {{todolist.expiration}}
                                 
-                            <a href="?/Todolist/deletetodolist/{{todolist.id}}" name="deletetodolist" method="post" value="{{todolist.id}}" type="submit" class="btn btn-success btn-md">Delete</a> </h1>
+                            <a href="?/Todolist/deletetodolist/{{todolist.id}}" name="deletetodolist" method="post" value="{{todolist.id}}" type="submit" class="btn btn-success btn-md">Delete</a> </h4>
 
                             </div>
                         </div> 

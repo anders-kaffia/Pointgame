@@ -32,7 +32,7 @@
     {%if user %}
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
-
+        {% include "templatepushdownforindex.html" %}
         <!-- Prints all Todolists for current user -->
         {% for todolist in todolists %}
             {% include "showallusertodolist.html" %} 
