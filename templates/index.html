@@ -30,11 +30,9 @@
          
     <!-- if user is logged in -->
     {%if user %}
-
-        
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
-        {% include "templatepushdownforindex.html" %}
+
         <!-- Prints all Todolists for current user -->
         {% for todolist in todolists %}
             {% include "showallusertodolist.html" %} 
@@ -45,24 +43,15 @@
             {% include "showtodolist.html" %} 
         {% endif %}
 
-        {% if premium %}
-        Du är nu inloggad som premium
-        {% endif %}
-
         <!-- Creates new Todolist -->
-      
-       
-         
+        {% include "createtodolist.html" %}
+        
         <!-- Shows total score for current user -->
         Total Score:
         {% include "showtotalpoints.html" %}
-        
 
-         {% include "createtodolist.html" %}
         <!-- Contact Section -->
         <!--include "contact.html" -->
-
-        {% include "tips.html" %}
 
 
         <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
@@ -93,8 +82,6 @@
             {% include "inspiration.html" %}
             <!-- About Section -->
             {% include "about.html" %}
-            <!-- Contact Section -->
-            {% include "contact.html" %} 
             <!-- Footer -->
             {% include "footer.html" %}
 
