@@ -103,7 +103,7 @@ class Todolist{
 		 		$todolists[] = $todolist;
 		 	}
 
-<<<<<<< HEAD
+
 		 	while($exp = $result2->fetch_assoc()){
 		 		$exps[] = $exp;
 		 		/*var_dump($exp);
@@ -116,9 +116,9 @@ class Todolist{
 			#Denna 'post' är kopplat till Twig. Så när denna return körs returneras värdet 'posts' tillbaka till index.php
 		 	#Gå tillbaka till index.php och följ punkt #19.
 		 	return ['todolists' => $todolists, 'exp' => $exps];
-=======
+
 		 	return ['todolists' => $todolists];
->>>>>>> origin/master
+
 		
 	}
 	
