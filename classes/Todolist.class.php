@@ -94,27 +94,14 @@ class Todolist{
 		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."  ");
 
 
-		 	$result2 = $mysqli->query(" SELECT expiration FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."  ");
-
-
+		 	
 
 
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
 
-		 	while($exp = $result2->fetch_assoc()){
-		 		$exps[] = $exp;
-		 		var_dump($exp);
-		 	die();
-		 	}
-
-			
-	
-		 	#18. Queryn körs mot databasen och vi väljer nedan att returnera något som vi kallar för 'post'. 
-			#Denna 'post' är kopplat till Twig. Så när denna return körs returneras värdet 'posts' tillbaka till index.php
-		 	#Gå tillbaka till index.php och följ punkt #19.
-		 	return ['todolists' => $todolists, 'exp' => $exps];
+		 	return ['todolists' => $todolists, 'exp' => $exp];
 		
 	}
 	
