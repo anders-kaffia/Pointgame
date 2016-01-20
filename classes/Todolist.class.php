@@ -116,7 +116,9 @@ class Todolist{
 			$id = $params[0];
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
-			$result = $mysqli->query("DELETE FROM listitem WHERE id=$id ");
+			$result = $mysqli->query("
+							DELETE FROM listitem WHERE id=$id
+							");
 
 	 		return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
