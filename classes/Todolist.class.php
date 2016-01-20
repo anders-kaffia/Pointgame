@@ -32,17 +32,9 @@ class Todolist{
 				VALUES ('$todoname', ".$_SESSION['user']['id'].", '$type', now() + INTERVAL 1 ".$interval." ) ";
 
 				$mysqli->query($query);
-					
+			}		
 
-
-			} 
-			
-			
-		
-		
-
-			return ['redirect' =>  '?/Todolist/all'];
-		
+			return ['redirect' =>  '?/Todolist/all'];		
 }	
 
 	public static function createlistitem($params){
@@ -71,11 +63,20 @@ class Todolist{
 			$id = $params[0];
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
-			$result = $mysqli->query("SELECT * FROM todolist WHERE id= ".$id." ");
+			$result = $mysqli->query("
+							SELECT * FROM todolist
+							WHERE id= ".$id."
+							");
 			$todolist = $result->fetch_assoc();
 
-			$result = $mysqli->query("SELECT * FROM listitem WHERE todolist_id= ".$id." ");
-			$result2 = $mysqli->query("SELECT * FROM donelistitem WHERE todolist_id= ".$id." ");
+			$result = $mysqli->query("
+							SELECT * FROM listitem
+							WHERE todolist_id= ".$id."
+							");
+			$result2 = $mysqli->query("
+							SELECT * FROM donelistitem
+							WHERE todolist_id= ".$id."
+							");
 		
 			while($listitem = $result->fetch_assoc()){
 				$listitems[] = $listitem;
@@ -84,18 +85,19 @@ class Todolist{
 			 	$doneitems[] = $doneitem;
 			 }	 	
 
-	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'single' => 'single', ];  
-		
+	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'single' => 'single', ];		
 	}
 
 	public static function all($params){
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
-		 	$deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
-		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()");
-		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."
-		 					 	
-		 	  ");
+		 	/* $deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
+		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()"); */
+		 	$result = $mysqli->query("
+		 					SELECT * FROM todolist
+		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
+		 					AND todolist.expiration > NOW()
+		 	  				");
 
 
 
@@ -103,10 +105,7 @@ class Todolist{
 		 		$todolists[] = $todolist;
 		 	}
 
-
 		 	return ['todolists' => $todolists];
-
-		
 	}
 	
 	public static function deletelistitem($params){
@@ -116,9 +115,7 @@ class Todolist{
 			$id = $mysqli->real_escape_string($id);
 			$result = $mysqli->query("DELETE FROM listitem WHERE id=$id ");
 
-
-	 		return ['redirect' => $_SERVER['HTTP_REFERER']];  
-		
+	 		return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
 	
 	public static function deletetodolist($params){
@@ -129,7 +126,8 @@ class Todolist{
 				DELETE FROM todolist WHERE todolist.id = $id;
 				DELETE FROM listitem WHERE listitem.todolist_id = $id;
 				DELETE FROM donelistitem WHERE donelistitem.todolist_id = $id	
-				"); 
+				");
+
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 	}
 	
@@ -148,9 +146,4 @@ class Todolist{
 		
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
-
-	
-
 }
-
-
