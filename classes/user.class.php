@@ -11,11 +11,11 @@ class User{
 			$email = $mysqli->real_escape_string($_POST['email']);
 			$username = $mysqli->real_escape_string($_POST['username']);
 			$password = $mysqli->real_escape_string($_POST['password']);			
-
+			$premiumstartvalue = NULL;
 			$query = "
 				INSERT INTO user
-				(firstname, lastname, email, username, password) 
-				VALUES ('$firstname', '$lastname', '$email', '$username', '$password')
+				(firstname, lastname, email, username, password, premium) 
+				VALUES ('$firstname', '$lastname', '$email', '$username', '$password', '$premiumstartvalue')
 			";
 
 			$mysqli->query($query) or die($mysqli->error);

@@ -30,6 +30,8 @@
          
     <!-- if user is logged in -->
     {%if user %}
+
+        
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
         {% include "templatepushdownforindex.html" %}
@@ -41,6 +43,10 @@
         <!-- Shows single Todolist -->
         {% if single %}
             {% include "showtodolist.html" %} 
+        {% endif %}
+
+        {% if premium %}
+        Du är nu inloggad som premium
         {% endif %}
 
         <!-- Creates new Todolist -->

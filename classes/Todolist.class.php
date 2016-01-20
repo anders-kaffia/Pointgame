@@ -94,6 +94,7 @@ class Todolist{
 	public static function all($params){
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
+		 	$checked = Todolist::checkifpremium($params);
 		 	/* $deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
 		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()"); */
 		 	$result = $mysqli->query("
@@ -103,12 +104,12 @@ class Todolist{
 		 	  				");
 
 
-
+		 		
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
 
-		 	return ['todolists' => $todolists];
+		 	return ['todolists' => $todolists, 'premium' => $checked];
 	}
 	
 	public static function deletelistitem($params){
@@ -149,4 +150,36 @@ class Todolist{
 		
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
+
+	public static function checkifpremium($params){
+		
+		
+
+			$mysqli = DB::getInstance();			
+			$checktabel = 1; 
+
+			//$password = crypt($password,'$2a$'.sha1($username));
+
+			$query = "
+				SELECT premium FROM user WHERE  premium = '$checktabel' and user.id = ".$_SESSION['user']['id']."
+				
+			";
+
+			$result = $mysqli->query($query);
+			$checkresult = $result->fetch_assoc();
+
+						 
+		 
+		 
+		if($checkresult == TRUE){
+
+			echo "Du är asasas premium";
+			
+				return $checkresult;		
+			 		 				
+			}
+			
+			return [];
+
+		}
 }
