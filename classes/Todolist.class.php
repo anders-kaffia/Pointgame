@@ -211,7 +211,7 @@ class Todolist{
 							FROM listitem, todolist
 							WHERE listitem.todolist_id = todolist.id
 							AND todolist.id = ".$id."
-		 		")
+		 		");
 
 		 	
 
