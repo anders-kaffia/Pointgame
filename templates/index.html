@@ -55,8 +55,8 @@
         Total Score:
         {% include "showtotalpoints.html" %}
 
-        <!-- Contact Section -->
-        <!--include "contact.html" -->
+        <!-- Tips Section -->
+        {% include "tips.html" %}
 
 
         <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
@@ -66,7 +66,7 @@
             for listitem in listitems 
                  include "showlistitems.html"         
             endfor 
-            include "tips.html" 
+            
             else 
                 include "header.html" 
                 include "login.html" 
