@@ -12,6 +12,8 @@ class Todolist{
 			$mysqli = DB::getInstance();
 			$todoname = $mysqli->real_escape_string($_POST['createtodolist']);
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
+			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
+			$interval = $mysqli->real_escape_string($interval);
 
 			if($_POST['todolisttype'] == 'day') {
 				$interval = 'day';
@@ -44,6 +46,8 @@ class Todolist{
 			$task = $mysqli->real_escape_string($_POST['createItem']);
 			$score= $mysqli->real_escape_string($_POST['createpoints']);
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
+
+
 
 			$query = "
 				INSERT INTO listitem
@@ -167,7 +171,8 @@ class Todolist{
 		
 		
 
-			$mysqli = DB::getInstance();			
+			$mysqli = DB::getInstance();
+			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);		
 			$checktabel = 1; 
 
 			//$password = crypt($password,'$2a$'.sha1($username));

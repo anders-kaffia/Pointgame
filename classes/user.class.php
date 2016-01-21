@@ -27,6 +27,7 @@ class User{
 	public static function premiumsuccess($params){
 
 			$mysqli = DB::getInstance();
+			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
 			$query = "
 				UPDATE user
 				SET premium = 1
@@ -83,6 +84,7 @@ class User{
 
 
 	public static function logout($params){ 
+		
 
         if(isset($_POST['logout'])){
             
