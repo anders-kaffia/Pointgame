@@ -92,7 +92,6 @@ class Todolist{
 
 	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'template' => 'singleindex.html', ];  
 		
-
 	}
 
 	public static function all($params){
@@ -115,8 +114,6 @@ class Todolist{
 		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
 		 					AND todolist.expiration > NOW()
 		 	  				");
-
-
 		 		
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
@@ -169,8 +166,6 @@ class Todolist{
 
 	public static function checkifpremium($params){
 		
-		
-
 			$mysqli = DB::getInstance();
 			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);		
 			$checktabel = 1; 
