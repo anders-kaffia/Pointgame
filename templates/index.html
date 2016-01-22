@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +11,8 @@
 
     <title>{{title}}</title>
 
+    <!-- Favorites Icon -->
+    <link rel="shortcut icon" href="templates/img/icons/favicon.ico">
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="templates/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -20,6 +23,7 @@
     <link href="templates/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
     <!-- Scripts -->
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -51,8 +55,11 @@
         Total Score:
         {% include "showtotalpoints.html" %}
 
-        <!-- Contact Section -->
-        <!--include "contact.html" -->
+        <!-- Tips Section -->
+        {% include "tips.html" %}
+
+        <!-- Footer Section -->
+        {% include "footer.html" %}
 
 
         <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
@@ -62,7 +69,7 @@
             for listitem in listitems 
                  include "showlistitems.html"         
             endfor 
-            include "tips.html" 
+            
             else 
                 include "header.html" 
                 include "login.html" 
@@ -91,13 +98,13 @@
  
         <!-- If Freemium user is logged in, show following -->
         {% if freemium %}
-            {% include "userheader.html" %}
+            
         {% endif %}
         <!-- / Freemium user specified content -->
 
         <!-- If premium user is logged in, show following -->
         {% if premium %}
-            {% include "userheader.html" %}
+            
         {% endif %}
         <!-- / premium user specified content -->
 

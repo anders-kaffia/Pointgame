@@ -12,6 +12,8 @@ class Todolist{
 			$mysqli = DB::getInstance();
 			$todoname = $mysqli->real_escape_string($_POST['createtodolist']);
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
+			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
+			$interval = $mysqli->real_escape_string($interval);
 
 			if($_POST['todolisttype'] == 'day') {
 				$interval = 'day';
@@ -44,7 +46,13 @@ class Todolist{
 			$task = $mysqli->real_escape_string($_POST['createItem']);
 			$score= $mysqli->real_escape_string($_POST['createpoints']);
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
+
 			if ($task != NULL) {
+
+
+
+
+
 			$query = "
 				INSERT INTO listitem
 				(task, score, todolist_id) 
@@ -107,7 +115,6 @@ class Todolist{
 				return ['redirect' =>  '?/Todolist/all'];//return ['template' => 'errormessage.html'];
 			}
 		
-
 	}
 
 	public static function all($params){
@@ -130,8 +137,6 @@ class Todolist{
 		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
 		 					AND todolist.expiration > NOW()
 		 	  				");
-
-
 		 		
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
@@ -184,9 +189,8 @@ class Todolist{
 
 	public static function checkifpremium($params){
 		
-		
-
-			$mysqli = DB::getInstance();			
+			$mysqli = DB::getInstance();
+			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);		
 			$checktabel = 1; 
 
 			//$password = crypt($password,'$2a$'.sha1($username));
