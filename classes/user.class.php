@@ -40,9 +40,6 @@ class User{
 			return['template' => 'premiumsuccess.html'];
 	}
 
-				WHERE user.id = ".$_SESSION['user']['id']."
-
-
 	public static function login($params){
 		
 		if(isset($_POST['login'])){
