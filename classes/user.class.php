@@ -64,6 +64,8 @@ class User{
 
 								 
 		 }
+
+
 		 
 		if(isset($user['id'])){
 
@@ -75,11 +77,15 @@ class User{
 			'redirect' => '?/Todolist/all'
 			];
 			 		 				
-			}
-			
-			return [];
+			} else {
 
-		}
+		 	return ['redirect' => '/Pointgame#login'];
+		 	
+		 }
+
+
+
+} 
 
 
 
