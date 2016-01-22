@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +28,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
-    <body id="page-top" class="index">
 
+    <body id="page-top" class="index">
+  
+         
     <!-- if user is logged in -->
-    {% if user %}
+    {%if user %}
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
         <!-- KALLE, TAG EJ BORT DENNA! -->
@@ -54,15 +58,33 @@
         <!-- Tips Section -->
         {% include "tips.html" %}
 
+        <!-- Footer Section -->
+        {% include "footer.html" %}
+
+
+        <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
+        <!-- removed Twig signs!!
+        if user 
+           
+            for listitem in listitems 
+                 include "showlistitems.html"         
+            endfor 
+            
+            else 
+                include "header.html" 
+                include "login.html" 
+                include "inspiration.html" 
+        endif
+        -->
+
         <!-- if no user is logged in -->
-    {% else %}
+        {% else %}
             <!-- Navigation -->
-            {% include "navbar.html" %}  
+    {% include "navbar.html" %}  
             <!-- Header Section -->
             {% include "header.html" %}
             <!-- Login Section -->
             {% include "login.html" %}
-            <!-- Create Account -->
             {% include "createaccount.html" %}
             <!-- Inspiration Section -->
             {% include "inspiration.html" %}
@@ -70,8 +92,23 @@
             {% include "about.html" %}
             <!-- Footer -->
             {% include "footer.html" %}
-    <!-- End if user -->        
-    {% endif %} 
+
+    {% endif %}
+    <!-- End if user -->
+ 
+        <!-- If Freemium user is logged in, show following -->
+        {% if freemium %}
+            
+        {% endif %}
+        <!-- / Freemium user specified content -->
+
+        <!-- If premium user is logged in, show following -->
+        {% if premium %}
+            
+        {% endif %}
+        <!-- / premium user specified content -->
+
+
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
         <div class="scroll-top page-scroll visible-xs visible-sm">
             <a class="btn btn-primary" href="#page-top">
@@ -91,5 +128,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <!-- Custom Theme JavaScript -->
         <script src="templates/js/freelancer.js"></script>
+
     </body>
 </html>
