@@ -114,6 +114,7 @@ class Todolist{
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
 		 	$checked = Todolist::checkifpremium($params);
+		 	$dashboard = Todolist::dashboard();
 
 		 	//KOLL FÖR DASHBOARDEN! typ...
 		 	/*if ($checked == TRUE) {
@@ -137,7 +138,7 @@ class Todolist{
 		 		$todolists[] = $todolist;
 		 	}
 
-		 	return ['todolists' => $todolists, 'premium' => $checked];
+		 	return ['todolists' => $todolists, 'premium' => $checked, 'dashboard' => $dashboard];
 	}
 	
 	public static function deletelistitem($params){
@@ -229,38 +230,73 @@ class Todolist{
 			}	
 	}
 	
-	public static function dashboard($params){
-		 /*	$mysqli = DB::getInstance();
+	public static function dashboard(){
+			$mysqli = DB::getInstance();
 		 	
 		 	# TOTAL SCORE FROM CURRENT USER:
-		 	$result = $mysqli->query("
-		 					SELECT SUM(score)
+		 	$result1 = $mysqli->query("
+		 					SELECT SUM(score) as totalscore
 							FROM donelistitem, todolist, user
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.user_id = user.id
 							AND user.id = ".$_SESSION['user']['id']."
 		 					");
 
-		 	# TOTAL SCORE FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
 		 	$result2 = $mysqli->query("
+							SELECT SUM(score)
+							FROM donelistitem, todolist, user
+							WHERE donelistitem.todolist_id = todolist.id
+							AND todolist.type = 'day'
+							AND todolist.user_id = user.id
+							AND user.id = ".$_SESSION['user']['id']."
+		 					");
+		 	$result3 = $mysqli->query("
+							SELECT SUM(score)
+							FROM donelistitem, todolist, user
+							WHERE donelistitem.todolist_id = todolist.id
+							AND todolist.type = 'week'
+							AND todolist.user_id = user.id
+							AND user.id = ".$_SESSION['user']['id']."
+		 					");
+		 	$result4 = $mysqli->query("
+							SELECT SUM(score)
+							FROM donelistitem, todolist, user
+							WHERE donelistitem.todolist_id = todolist.id
+							AND todolist.type = 'month'
+							AND todolist.user_id = user.id
+							AND user.id = ".$_SESSION['user']['id']."
+		 					");
+		 	
+		 	$dash1 = $result1->fetch_assoc();
+		 	$dash2 = $result2->fetch_assoc();
+		 	$dash3 = $result3->fetch_assoc();
+		 	$dash4 = $result4->fetch_assoc();
+		 	return ['result1' => $dash1, 'result2' => $dash2, 'result3' => $dash3, 'result4' => $dash4]; 
+	}
+
+	public static function dashboardsingle($params){
+			$id = $params[0];
+			$id = $mysqli->real_escape_string($id);
+			$mysqli = DB::getInstance();
+		 	
+		 	# TOTAL SCORE FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
+		 	$result1 = $mysqli->query("
 		 					SELECT SUM(score)
 							FROM donelistitem, todolist
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.id = ".$id."
 		 					");
 		 	# TOTAL NUMBER OF LISTITEMS FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
-		 	$result3 = $mysqli->query("
+		 	$result2 = $mysqli->query("
 							SELECT COUNT(listitem.id)
 							FROM listitem, todolist
 							WHERE listitem.todolist_id = todolist.id
 							AND todolist.id = ".$id."
-		 		");
-
+		 					");
 		 	
-		 	$dash1 = $result1->fetch_assoc();
-		 	$dash2 = $result2->fetch_assoc();
-		 	$dash3 = $result3->fetch_assoc();
-		 	return ['resultalt1' => $dash1, 'resultat2' => $dash2, 'resultat3' => $dash3]; */
+		 	$singledash1 = $result1->fetch_assoc();
+		 	$singledash2 = $result2->fetch_assoc();
+		 	return ['result1' => $singledash1, 'result2' => $singledash2]; 
 	}
 
 }

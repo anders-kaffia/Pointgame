@@ -114,38 +114,7 @@ class User{
 		
 	}
 
-	public static function dashboard($params){
-			$id = $params[0];
-			$id = $mysqli->real_escape_string($id);
-			$mysqli = DB::getInstance();
-		 	
-		 	# TOTAL SCORE FROM CURRENT USER:
-		 	$result1 = $mysqli->query("
-		 					SELECT SUM(score)
-							FROM donelistitem, todolist, user
-							WHERE donelistitem.todolist_id = todolist.id
-							AND todolist.user_id = user.id
-							AND user.id = ".$_SESSION['user']['id']."
-		 					");
+	
 
-		 	# TOTAL SCORE FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
-		 	$result2 = $mysqli->query("
-		 					SELECT SUM(score)
-							FROM donelistitem, todolist
-							WHERE donelistitem.todolist_id = todolist.id
-							AND todolist.id = ".$id."
-		 					");
-		 	# TOTAL NUMBER OF LISTITEMS FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
-		 	$result3 = $mysqli->query("
-							SELECT COUNT(listitem.id)
-							FROM listitem, todolist
-							WHERE listitem.todolist_id = todolist.id
-							AND todolist.id = ".$id."
-		 		");
-		 	
-		 	$dash1 = $result1->fetch_assoc();
-		 	$dash2 = $result2->fetch_assoc();
-		 	$dash3 = $result3->fetch_assoc();
-		 	return ['result1' => $dash1, 'result2' => $dash2, 'result3' => $dash3]; 
-	}
+
 }
