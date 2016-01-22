@@ -18,25 +18,25 @@
                         <div class="form-group col-xs-12 ">
                             <input type='hidden' name='post_id' value='{{todolist.id}}'>
                         </div>
-
                     </div>
-                                    
-
+                 
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                          
                         {% if premium == false %}
                         Want more options? <a href="?/generic/premiumPage">Go Premium!</a>
-                         <select id="dropdown" name="todolisttype" >
+                         <select name="todolisttype" >
                          <option type='hidden'   value="day">Day</option>
                         </select>
-                        {% endif %}
-                        
+                        {% endif %}                        
                          {% if premium %}
-                        <p>Välj då:</p>
-                        <select id="dropdown" name="todolisttype"> 
+                        <select name="todolisttype">
                             <option value="day">Day</option>
                             <option value="week">Week</option>
                             <option value="month">Month</option>
                         </select>
                         {% endif %}
+                        
                         <br>
                         <br>
                         
@@ -44,14 +44,16 @@
                             <div class="form-group col-xs-12">
                                 <button type="submit" class="btn btn-success btn-lg">Add new list!</button>
                             </div>
-
                         </div>
-                
+                    </div>
+                    </div>
                 </form>
             </div>
         </div>
+    </div>
 
-    </div>    
+
+
+
+
 </section>
-
-
