@@ -28,31 +28,11 @@
         <!-- Navigation User LoggedIn -->
         {% include "navbarLoggedIn.html" %}
         {% include "templatepushdownforindex.html" %}
-        <!-- Prints all Todolists for current user -->
         <!-- Shows single Todolist -->       
-        {% include "showtodolist.html" %} 
-        <!-- Creates new Todolist -->         
+        {% include "showtodolist.html" %}        
         <!-- Shows total score for current user -->
         Total Score:
         {% include "showtotalpoints.html" %}
-        <!-- Contact Section -->
-        <!--include "contact.html" -->
-
-        <!-- if user is logged in. This will later be changed to Freemium/Premium --> 
-        <!-- removed Twig signs!!
-        if user           
-            for listitem in listitems 
-                 include "showlistitems.html"         
-            endfor 
-            include "tips.html" 
-            else 
-                include "header.html" 
-                include "login.html" 
-                include "inspiration.html" 
-        endif
-        -->
-
-        <!-- if no user is logged in -->
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
         <div class="scroll-top page-scroll visible-xs visible-sm">
             <a class="btn btn-primary" href="#page-top">
