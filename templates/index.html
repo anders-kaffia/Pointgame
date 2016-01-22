@@ -46,13 +46,15 @@
         <!-- Shows single Todolist -->
         {% if single %}
             {% include "showtodolist.html" %} 
+          
+            {% include "dashboardsingel.html" %} 
         {% endif %}
-
+  
         <!-- Creates new Todolist -->
         {% include "createtodolist.html" %}
         
         <!-- Shows total score for current user -->
-        Total Score:
+        
         {% include "dashboard.html" %}
 
         <!-- Tips Section -->

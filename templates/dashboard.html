@@ -1,12 +1,26 @@
 <!-- Dashboard  --> 
-<div class="row">
-    <div class="col-xs-6">
-        <table class="table table-striped">
+<div class="row  " >
+    <div class="col-lg-8 col-lg-offset-3	">
+        <table class=" table table-striped">
  		<tr>
- 			<td>{{dashboard.result1.totalscore}}</td>
+ 			
+ 			<td>Total Points</td>
+ 			<td>{{dashboard.result1.totalscore}} </td>
  		</tr>
  		<tr>
- 			<td></td>
+ 		
+ 			<td>Total Daily List points</td>
+ 			<td>{{dashboard.result2.DailyScore}}</td>
+ 		</tr>
+ 		<tr>
+ 		
+ 		<td>Total Weekly list points</td>
+ 			<td>{{dashboard.result3.WeeklyScore}}</td>
+ 		</tr>
+ 		<tr>
+ 		
+ 		<td>Total Monthly list points</td>
+ 			<td>{{dashboard.result4.MonthlyScore}}</td>
  		</tr>
  		</table>
     </div>

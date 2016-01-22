@@ -24,13 +24,14 @@
                         <div class="form-group col-xs-12">
                           
                         {% if premium == false %}
-                        Want more options? <a href="?/generic/premiumPage">Go Premium!</a>
-                         <select id="dropdown" name="todolisttype">
-                         <option type='hidden'   value="day">Day</option> 
+                        <h4> Want more List options? <a href="?/generic/premiumPage">Go Premium!</a> </h4>
+                       <select id="dropdown" name="todolisttype">
+                         <option type='hidden' value="day">Day</option> 
                         
                         </select>
                         {% endif %}                        
                          {% if premium %}
+                        <h4> Choose list type: </h4>
                         <select id="dropdown" name="todolisttype">
                             <option value="day">Day</option> 
                             <option value="week">Week</option>
@@ -38,7 +39,8 @@
                             
                         </select>
                         {% endif %}
-                        
+                        <br>
+
                         <br>
                         <br>
                         
