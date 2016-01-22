@@ -1,39 +1,60 @@
-
-    <section>
-        <div class="container">
-     
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form action='?/Todolist/createtodolist' method="post" name="createItem" >
-                     
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
+<!-- Create Todolist -->
+<section>
+    <div class="container"> 
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                <form action='?/Todolist/createtodolist' method="post" name="createItem">                 
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
                             <h2>Create New PointGame list</h2>
-                                <label>New PointGame list!</label>
-                                <input  type="text"  name='createtodolist' value='{{todolist.user_id}}' class="form-control" placeholder="Name" id="email">
-                                <p class="help-block text-danger"></p>
-                            </div>
+                            <label>New PointGame list!</label>
+                            <input  type="text"  name='createtodolist' value='{{todolist.user_id}}' class="form-control" placeholder="Name" id="email">
+                            <p class="help-block text-danger"></p>
                         </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 ">
-                                <input type='hidden' name='post_id' value='{{todolist.id}}'>
-                            </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 ">
+                            <input type='hidden' name='post_id' value='{{todolist.id}}'>
                         </div>
+                    </div>
+                    {% if premium == false %}
+                    Want more options? <a href="?/generic/premiumPage">Go Premium!</a>
+                     <select name="todolisttype">
+                        <option type='hidden'   value="day">Day</option>                        
+                    </select>
+                    {% endif %}                    
+                    {% if premium %}
+                    <p>Choose list type:</p>                   
+                    <select name="todolisttype">
+                        <option value="day">Day</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                    </select>
+                    {% endif %}
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                Add new list!
+                            </button>
                         {% if premium == false %}
                         Want more options? <a href="?/generic/premiumPage">Go Premium!</a>
                          <select name="todolisttype" >
                          <option type='hidden'   value="day">Day</option>
                         </select>
-                        {% endif %}
-                        
+                        {% endif %}                        
                          {% if premium %}
+<<<<<<< Updated upstream
                         <p>Välj då:</p>
+=======
+                        <p>Choose list type:</p>
+>>>>>>> Stashed changes
                         <select name="todolisttype">
-                            <option   value="day">Day</option>
-                            <option   value="week">Week</option>
-                            <option  value="month">Month</option>
+                            <option value="day">Day</option>
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
                         </select>
                         {% endif %}
                         <br>
@@ -44,10 +65,15 @@
                                 <button type="submit" class="btn btn-success btn-lg">Add new list!</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
+<<<<<<< Updated upstream
 </section>
 
 
+=======
+    </div>
+</section>
+>>>>>>> Stashed changes
