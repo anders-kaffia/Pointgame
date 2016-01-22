@@ -3,6 +3,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>Create Account</h2>
+                {% if notallowed %}
+                <h3 class="page-scroll">You have to fillout the form</h3>
+                {% endif %}
                 <hr class="star-primary">
             </div>
         </div>
@@ -48,8 +51,9 @@
                     <br>
                     <div id="success"></div>
                     <div class="row">
-                        <div class="form-group col-xs-12">
-                            <button  name="createuser" type="submit" class="btn btn-success btn-lg">Create Account</button>
+                        <div class="form-group col-xs-12 ">
+                        
+                            <button name="createuser" type="submit" class="btn btn-success btn-lg">Create Account</button>
                         </div>
                     </div>
                 </form>

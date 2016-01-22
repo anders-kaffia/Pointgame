@@ -11,6 +11,8 @@ class User{
 			$username = $mysqli->real_escape_string($_POST['username']);
 			$password = $mysqli->real_escape_string($_POST['password']);			
 			$premiumstartvalue = NULL;
+
+			if ($firstname && $lastname && $email && $username && $password != null) {
 			$query = "
 				INSERT INTO user
 				(firstname, lastname, email, username, password, premium) 
@@ -19,7 +21,13 @@ class User{
 
 			$mysqli->query($query) or die($mysqli->error);
 			
-			return ['redirect' => '/Pointgame#login'];
+			return ['redirect' => '/Pointgame/#login'];
+		}
+			else{
+
+			return [ 'notallowed' => '/Pointgame/#createaccount'];
+			}
+			
 		}
 	}	
 
