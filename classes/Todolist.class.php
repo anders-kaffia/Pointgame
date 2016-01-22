@@ -3,15 +3,18 @@
 
 class Todolist{
 
-	private $week, $day, $month;
+	
 
-
+	//This method creates a new Todolist. 
 	public static function createtodolist($params){
 
 		if(isset($_POST['createtodolist'])){
 			$mysqli = DB::getInstance();
 			$todoname = $mysqli->real_escape_string($_POST['createtodolist']);
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
+
+
+			//If statement for choosing listtype (day/week/monthly) list. 
 
 			if($_POST['todolisttype'] == 'day') {
 				$interval = 'day';
@@ -26,17 +29,19 @@ class Todolist{
 
 			}
 			
-		$query = "
-				INSERT INTO todolist
-				(name, user_id, type, expiration)
-				VALUES ('$todoname', ".$_SESSION['user']['id'].", '$type', now() + INTERVAL 1 ".$interval." ) ";
+			$query = "
+					INSERT INTO todolist
+					(name, user_id, type, expiration)
+					VALUES ('$todoname', ".$_SESSION['user']['id'].", '$type', now() + INTERVAL 1 ".$interval." ) ";
 
 				$mysqli->query($query);
 			}		
 
 			return ['redirect' =>  '?/Todolist/all'];		
 }	
+	
 
+	//This method creates a new Listitem.
 	public static function createlistitem($params){
 
 		if(isset($_POST['createItem'])){
@@ -44,6 +49,8 @@ class Todolist{
 			$task = $mysqli->real_escape_string($_POST['createItem']);
 			$score= $mysqli->real_escape_string($_POST['createpoints']);
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
+
+			//If the Name field for a new listitem is Not empty, Dothis: 
 			if ($task != NULL) {
 			$query = "
 				INSERT INTO listitem
@@ -55,6 +62,7 @@ class Todolist{
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
+			//Else Do this: 
 			else {
 				return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
@@ -62,12 +70,15 @@ class Todolist{
 
 	}
 
+	//This method shows a single todolist with its items. 
 	public static function single($params){
-			var_dump($params);
+		
 			$id = $params[0];
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
+			//Print Dashboard for current users list. 
 			$dashboard = Todolist::dashboardsingle($id);
+			//Checked is for making sure that the users cant access another users list. 
 			$checked = Todolist::isowner($_SESSION['user']['id'], $id);
 			
 
@@ -111,30 +122,22 @@ class Todolist{
 
 	}
 
+	//This method shows all the users todolists.
 	public static function all($params){
-			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
+		
 		 	$mysqli = DB::getInstance();
+		 	//Checked is used here to see if the user is a premium user. 
 		 	$checked = Todolist::checkifpremium($params);
+		 	//Total dashboard for user is shown.
 		 	$dashboard = Todolist::dashboard();
 
-		 	//KOLL FÖR DASHBOARDEN! typ...
-		 	/*if ($checked == TRUE) {
-		 		$a = Todolist::dashboard($stj);
-		 		echo "hej fan";
-		 		var_dump($a);
-		 		die();
-		 	}*/
-
-		 	/* $deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
-		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()"); */
 		 	$result = $mysqli->query("
 		 					SELECT * FROM todolist
 		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
 		 					AND todolist.expiration > NOW()
 		 	  				");
 
-
-		 		
+ 			
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
@@ -142,6 +145,8 @@ class Todolist{
 		 	return ['todolists' => $todolists, 'premium' => $checked, 'dashboard' => $dashboard];
 	}
 	
+
+	//This method deletes listitems
 	public static function deletelistitem($params){
 		
 			$id = $params[0];
@@ -153,7 +158,7 @@ class Todolist{
 
 	 		return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
-	
+	//This method deletes todolists and its items
 	public static function deletetodolist($params){
 			$mysqli = DB::getInstance();
 			$id = $params[0];
@@ -166,7 +171,7 @@ class Todolist{
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 	}
-	
+	//This method puts the listitems into a donelist.
 	public static function doneitem($params){
 		
 			$id = $params[0];
@@ -183,11 +188,9 @@ class Todolist{
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
 
-
+	//This method  checks if the user is premium
 	public static function checkifpremium($params){
 		
-		
-
 			$mysqli = DB::getInstance();			
 			$checktabel = 1; 
 
@@ -206,7 +209,7 @@ class Todolist{
 		 
 		if($checkresult == TRUE){
 
-			echo "Du är asasas premium";
+			
 			
 				return $checkresult;		
 			 		 				
@@ -215,13 +218,14 @@ class Todolist{
 			return [];
 
 		}
+			//This method checks of the user is a owner of a todolist
 			public static function isowner($userId,$listId){
-			$x = $listId;
+			$list = $listId;
 			$mysqli = DB::getInstance();
 			$userId = $mysqli->real_escape_string($userId);
 			$result = $mysqli->query("
 				SELECT * FROM todolist
-				WHERE id = ".$x." AND user_id = ". $userId . " ");
+				WHERE id = ".$list." AND user_id = ". $userId . " ");
 
 			if($result->num_rows > 0) {
 			return true;
@@ -230,7 +234,7 @@ class Todolist{
 
 			}	
 	}
-	
+	//This method for printing out all the Dashboard items
 	public static function dashboard(){
 			$mysqli = DB::getInstance();
 		 	
@@ -276,7 +280,7 @@ class Todolist{
 		 	$dash4 = $result4->fetch_assoc();
 		 	return ['result1' => $dash1, 'result2' => $dash2, 'result3' => $dash3, 'result4' => $dash4]; 
 	}
-
+	//This method for printing the dashboarditems in single. 
 	public static function dashboardsingle($id){
 		
 			$mysqli = DB::getInstance();

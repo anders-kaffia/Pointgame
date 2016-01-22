@@ -2,7 +2,9 @@
 
 class User{
 
+	//This method creates a user
 	public static function createuser($params){
+
 		if(isset($_POST['createuser'])){
 			$mysqli = DB::getInstance();
 			$firstname = $mysqli->real_escape_string($_POST['firstname']);
@@ -12,6 +14,7 @@ class User{
 			$password = $mysqli->real_escape_string($_POST['password']);			
 			$premiumstartvalue = NULL;
 
+			// All fields HAS to have value
 			if ($firstname && $lastname && $email && $username && $password != null) {
 			$query = "
 				INSERT INTO user
@@ -31,6 +34,7 @@ class User{
 		}
 	}	
 
+	//This method creates a Freemium user into a Premium user
 	public static function premiumsuccess($params){
 
 			$mysqli = DB::getInstance();
@@ -47,22 +51,7 @@ class User{
 			return['template' => 'premiumsuccess.html'];
 	}
 
-	public static function unsubscribe($params){
-
-			$mysqli = DB::getInstance();
-			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
-			$query = "
-				UPDATE user
-				SET premium = 0
-				WHERE user.id = ".$_SESSION['user']['id']."
-
-			";
-
-			$mysqli->query($query);
-
-			return['redirect' => '?/Todolist/all'];
-	}
-
+	//This method checks the login.
 	public static function login($params){
 		
 		if(isset($_POST['login'])){
@@ -99,7 +88,7 @@ class User{
 		 	return ['redirect' => '/Pointgame#login'];
 		 }
 	}		
-
+	//This method logs you out
 	public static function logout($params){ 
 
 
