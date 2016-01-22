@@ -12,8 +12,6 @@ class Todolist{
 			$mysqli = DB::getInstance();
 			$todoname = $mysqli->real_escape_string($_POST['createtodolist']);
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
-			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
-			$interval = $mysqli->real_escape_string($interval);
 
 			if($_POST['todolisttype'] == 'day') {
 				$interval = 'day';
@@ -46,9 +44,7 @@ class Todolist{
 			$task = $mysqli->real_escape_string($_POST['createItem']);
 			$score= $mysqli->real_escape_string($_POST['createpoints']);
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
-
-
-
+			if ($task != NULL) {
 			$query = "
 				INSERT INTO listitem
 				(task, score, todolist_id) 
@@ -58,6 +54,10 @@ class Todolist{
 			$mysqli->query($query);
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
+			}
+			else {
+				return ['redirect' => $_SERVER['HTTP_REFERER']];
+			}
 		}
 
 	}
@@ -67,31 +67,47 @@ class Todolist{
 			$id = $params[0];
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
-			$result = $mysqli->query("
-							SELECT * FROM todolist
-							WHERE id= ".$id."
-							");
-			$todolist = $result->fetch_assoc();
+
+			$checked = Todolist::isowner($_SESSION['user']['id'], $id);
+
+			if ($checked == TRUE) {
+
 
 			$result = $mysqli->query("
+							SELECT * FROM todolist
+							WHERE id= ".$id." 
+							");
+
+			$todolist = $result->fetch_assoc();
+
+
+			$result1 = $mysqli->query("
 							SELECT * FROM listitem
-							WHERE todolist_id= ".$id."
+							WHERE todolist_id= ".$id." 
 							");
 			$result2 = $mysqli->query("
 							SELECT * FROM donelistitem
-							WHERE todolist_id= ".$id."
+							WHERE todolist_id= ".$id." 
 							");
-		
-			while($listitem = $result->fetch_assoc()){
+			
+
+
+			while($listitem = $result1->fetch_assoc()){
 				$listitems[] = $listitem;
 			}
+			
 			while($doneitem = $result2->fetch_assoc()){
 			 	$doneitems[] = $doneitem;
 			 }	 	
 
 
 	 		return ['todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'template' => 'singleindex.html', ];  
+			}
+			else{
+				return ['redirect' =>  '?/Todolist/all'];//return ['template' => 'errormessage.html'];
+			}
 		
+
 	}
 
 	public static function all($params){
@@ -114,6 +130,8 @@ class Todolist{
 		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
 		 					AND todolist.expiration > NOW()
 		 	  				");
+
+
 		 		
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
@@ -166,8 +184,9 @@ class Todolist{
 
 	public static function checkifpremium($params){
 		
-			$mysqli = DB::getInstance();
-			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);		
+		
+
+			$mysqli = DB::getInstance();			
 			$checktabel = 1; 
 
 			//$password = crypt($password,'$2a$'.sha1($username));
@@ -194,7 +213,22 @@ class Todolist{
 			return [];
 
 		}
+			public static function isowner($userId,$listId){
+			$x = $listId;
+			$mysqli = DB::getInstance();
+			$userId = $mysqli->real_escape_string($userId);
+			$result = $mysqli->query("
+				SELECT * FROM todolist
+				WHERE id = ".$x." AND user_id = ". $userId . " ");
 
+			if($result->num_rows > 0) {
+			return true;
+			} else {
+				return false;
+
+			}	
+	}
+	
 	public static function dashboard($params){
 		 /*	$mysqli = DB::getInstance();
 		 	
