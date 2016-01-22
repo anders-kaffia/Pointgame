@@ -1,60 +1,59 @@
- <section id="createaccount">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Create Account</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
+<section id="createaccount">
+    <div class="container">
         <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <form action="?/User/createuser" method="post" id="contactForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Firstname</label>
-                                <input type="text" class="form-control" placeholder="Firstname" name="firstname" id="name" required data-validation-required-message="Please enter your firstname.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Lastname</label>
-                                <input type="text" class="form-control" placeholder="Lastname" name="lastname" id="name" required data-validation-required-message="Please enter your lastname.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="e-mail" class="form-control" placeholder="Email Address" name="email" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Username</label>
-                                <input type="text" class="form-control" placeholder="Username" name="username" id="name" required data-validation-required-message="Please enter your username.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Password" name="password" id="name" required data-validation-required-message="Please enter your password.">
-                                 <!--<input type="hidden" name="createuser_id">-->
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                 
-                        <br>
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button  name="createuser" type="submit" class="btn btn-success btn-lg">Create Account</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-lg-12 text-center">
+                <h2>Create Account</h2>
+                <hr class="star-primary">
             </div>
         </div>
-    </section>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <form action="?/User/createuser" method="post" id="contactForm" novalidate>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Firstname</label>
+                            <input type="text" class="form-control" placeholder="Firstname" name="firstname" id="name" required data-validation-required-message="Please enter your firstname.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Lastname</label>
+                            <input type="text" class="form-control" placeholder="Lastname" name="lastname" id="name" required data-validation-required-message="Please enter your lastname.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Email Address</label>
+                            <input type="e-mail" class="form-control" placeholder="Email Address" name="email" id="email" required data-validation-required-message="Please enter your email address.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Username</label>
+                            <input type="text" class="form-control" placeholder="Username" name="username" id="name" required data-validation-required-message="Please enter your username.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="name" required data-validation-required-message="Please enter your password.">
+                             <!--<input type="hidden" name="createuser_id">-->
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>             
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button  name="createuser" type="submit" class="btn btn-success btn-lg">Create Account</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

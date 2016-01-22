@@ -40,21 +40,7 @@ class User{
 			return['template' => 'premiumsuccess.html'];
 	}
 
-	public static function unsubscribe($params){
-
-			$mysqli = DB::getInstance();
-			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
-			$query = "
-				UPDATE user
-				SET premium = 0
 				WHERE user.id = ".$_SESSION['user']['id']."
-
-			";
-
-			$mysqli->query($query);
-
-			return['redirect' => '?/Todolist/all'];
-	}
 
 
 	public static function login($params){
@@ -93,17 +79,15 @@ class User{
 			'redirect' => '?/Todolist/all'
 			];
 			 		 				
-			} else {
-
+			}else {
 		 	return ['redirect' => '/Pointgame#login'];
-		 	
 		 }
 
 
 
 } 
 
-
+		
 
 	public static function logout($params){ 
 
