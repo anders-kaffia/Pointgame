@@ -40,8 +40,6 @@ class User{
 			return['template' => 'premiumsuccess.html'];
 	}
 
-				WHERE user.id = ".$_SESSION['user']['id']."
-
 
 	public static function login($params){
 		
@@ -87,10 +85,10 @@ class User{
 
 } 
 
-		
+
 
 	public static function logout($params){ 
-
+		
 
         if(isset($_POST['logout'])){
             
