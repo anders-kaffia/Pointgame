@@ -6,7 +6,7 @@ class User{
 	//This method creates a new user.
 	public static function createUser($params){
 
-		if(isset($_POST['createUser'])){
+		if(isset($_POST['createuser'])){
 			$mysqli = DB::getInstance();
 			$firstname = $mysqli->real_escape_string($_POST['firstname']);
 			$lastname = $mysqli->real_escape_string($_POST['lastname']);
