@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
 session_start();
 // Sets up database connection.
 require_once("classes/DB.class.php");
