@@ -4,7 +4,7 @@
 class Todolist{	
 
 	//This method creates a new Todolist. 
-	public static function createtodolist($params){
+	public static function createTodolist($params){
 
 		if(isset($_POST['createtodolist'])){
 			$mysqli = DB::getInstance();
@@ -38,7 +38,7 @@ class Todolist{
 	}	
 
 	//This method creates a new Listitem on the current Todolist.
-	public static function createlistitem($params){
+	public static function createListitem($params){
 
 		if(isset($_POST['createItem'])){
 			$mysqli = DB::getInstance();
@@ -72,9 +72,9 @@ class Todolist{
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
 			//Prints Dashboard for current list. 
-			$dashboard = Todolist::dashboardsingle($id);
+			$dashboard = Todolist::dashboardSingle($id);
 			//Checked is for making sure that the users cant access another users list. 
-			$checked = Todolist::isowner($_SESSION['user']['id'], $id);			
+			$checked = Todolist::isOwner($_SESSION['user']['id'], $id);			
 
 			if ($checked == TRUE) {
 			$result = $mysqli->query("
@@ -96,15 +96,15 @@ class Todolist{
 				$listitems[] = $listitem;
 			}
 			
-			while($doneitem = $result2->fetch_assoc()){
-			 	$doneitems[] = $doneitem;
+			while($doneItem = $result2->fetch_assoc()){
+			 	$doneItems[] = $doneItem;
 			 }	 	
 
 
 	 		return ['dashboard' 	=> $dashboard, 
 	 				'todolist' 		=> $todolist, 
 	 				'listitems'		=> $listitems, 
-	 				'donelistitems' => $doneitems, 
+	 				'donelistitems' => $doneItems, 
 	 				'template' 		=> 'singleindex.html' ];  
 			}
 			else{
@@ -117,7 +117,7 @@ class Todolist{
 		
 		 	$mysqli = DB::getInstance();
 		 	//Checked is used here to see if the user is a premium user. 
-		 	$checked = Todolist::checkifpremium($params);
+		 	$checked = Todolist::checkIfPremium($params);
 		 	//Total Dashboard for user is shown, with overall scores and statistic.
 		 	$dashboard = Todolist::dashboard();
 
@@ -137,7 +137,7 @@ class Todolist{
 	}	
 
 	//This method deletes a specific listitem
-	public static function deletelistitem($params){
+	public static function deleteListitem($params){
 		
 			$id = $params[0];
 			$mysqli = DB::getInstance();
@@ -150,7 +150,7 @@ class Todolist{
 	}
 
 	//This method deletes selected todolist and its associated items, and "done" items.
-	public static function deletetodolist($params){
+	public static function deleteTodolist($params){
 			$mysqli = DB::getInstance();
 			$id = $params[0];
 			$id = $mysqli->real_escape_string($id);
@@ -164,7 +164,7 @@ class Todolist{
 	}
 
 	//This method deletes selected item from DB table "listitem" and inserts it into a DB table "donelist".
-	public static function doneitem($params){
+	public static function doneItem($params){
 		
 			$id = $params[0];
 			$mysqli = DB::getInstance();		
@@ -184,7 +184,7 @@ class Todolist{
 	}
 
 	//This method  checks if the current user is premium.
-	public static function checkifpremium($params){
+	public static function checkIfPremium($params){
 		
 			$mysqli = DB::getInstance();			
 			$checkvalue = 1;
@@ -208,7 +208,7 @@ class Todolist{
 	}
 
 	//This method checks if the current user is the owner of a todolist.
-	public static function isowner($userId,$listId){
+	public static function isOwner($userId,$listId){
 
 	$list = $listId;
 	$mysqli = DB::getInstance();
@@ -278,7 +278,7 @@ class Todolist{
 	}
 
 	//This method for printing the statistics for a single Todolist. 
-	public static function dashboardsingle($id){
+	public static function dashboardSingle($id){
 		
 			$mysqli = DB::getInstance();
 		 	$id = $mysqli->real_escape_string($id);

@@ -4,9 +4,9 @@
 class User{
 
 	//This method creates a new user.
-	public static function createuser($params){
+	public static function createUser($params){
 
-		if(isset($_POST['createuser'])){
+		if(isset($_POST['createUser'])){
 			$mysqli = DB::getInstance();
 			$firstname = $mysqli->real_escape_string($_POST['firstname']);
 			$lastname = $mysqli->real_escape_string($_POST['lastname']);
@@ -34,7 +34,7 @@ class User{
 	}	
 
 	//This method converts a Freemium user into a Premium user
-	public static function premiumsuccess($params){
+	public static function premiumSuccess($params){
 
 			$mysqli = DB::getInstance();
 			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
