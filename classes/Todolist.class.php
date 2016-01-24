@@ -58,7 +58,7 @@ class Todolist{
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
-			//If "name" input field is empty, do this: 
+			//If "name" and "points" input fields are empty, do this: 
 			else {
 				return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
