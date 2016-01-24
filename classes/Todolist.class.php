@@ -1,9 +1,7 @@
-
 <?php
+// This class includes all methods connected to Todolists
 
-class Todolist{
-
-	
+class Todolist{	
 
 	//This method creates a new Todolist. 
 	public static function createtodolist($params){
@@ -14,8 +12,7 @@ class Todolist{
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
 
 
-			//If statement for choosing listtype (day/week/monthly) list. 
-
+			//If statement for choosing list type (day/week/monthly) list.
 			if($_POST['todolisttype'] == 'day') {
 				$interval = 'day';
 
@@ -37,11 +34,10 @@ class Todolist{
 				$mysqli->query($query);
 			}		
 
-			return ['redirect' =>  '?/Todolist/all'];		
-}	
-	
+			return ['redirect' => '?/Todolist/all'];		
+	}	
 
-	//This method creates a new Listitem.
+	//This method creates a new Listitem on the current Todolist.
 	public static function createlistitem($params){
 
 		if(isset($_POST['createItem'])){
@@ -50,7 +46,7 @@ class Todolist{
 			$score= $mysqli->real_escape_string($_POST['createpoints']);
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
 
-			//If the Name field for a new listitem is Not empty, Dothis: 
+			//Prevents "name" input field from being empty. 
 			if ($task != NULL) {
 			$query = "
 				INSERT INTO listitem
@@ -62,36 +58,30 @@ class Todolist{
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
-			//Else Do this: 
+			//If "name" input field is empty, do this: 
 			else {
 				return ['redirect' => $_SERVER['HTTP_REFERER']];
 			}
 		}
-
 	}
 
-	//This method shows a single todolist with its items. 
+	//This method prints a single todolist with its associated list items. 
 	public static function single($params){
 		
 			$id = $params[0];
 			$mysqli = DB::getInstance();
 			$id = $mysqli->real_escape_string($id);
-			//Print Dashboard for current users list. 
+			//Prints Dashboard for current list. 
 			$dashboard = Todolist::dashboardsingle($id);
 			//Checked is for making sure that the users cant access another users list. 
-			$checked = Todolist::isowner($_SESSION['user']['id'], $id);
-			
+			$checked = Todolist::isowner($_SESSION['user']['id'], $id);			
 
 			if ($checked == TRUE) {
-
-
 			$result = $mysqli->query("
 							SELECT * FROM todolist
 							WHERE id= ".$id." 
 							");
-
 			$todolist = $result->fetch_assoc();
-
 
 			$result1 = $mysqli->query("
 							SELECT * FROM listitem
@@ -100,9 +90,7 @@ class Todolist{
 			$result2 = $mysqli->query("
 							SELECT * FROM donelistitem
 							WHERE todolist_id= ".$id." 
-							");
-			
-			
+							");			
 
 			while($listitem = $result1->fetch_assoc()){
 				$listitems[] = $listitem;
@@ -113,22 +101,24 @@ class Todolist{
 			 }	 	
 
 
-	 		return ['dashboard' => $dashboard, 'todolist' => $todolist, 'listitems' => $listitems, 'donelistitems' => $doneitems, 'template' => 'singleindex.html', ];  
+	 		return ['dashboard' 	=> $dashboard, 
+	 				'todolist' 		=> $todolist, 
+	 				'listitems'		=> $listitems, 
+	 				'donelistitems' => $doneitems, 
+	 				'template' 		=> 'singleindex.html' ];  
 			}
 			else{
-				return ['redirect' =>  '?/Todolist/all'];//return ['template' => 'errormessage.html'];
+				return ['redirect' => '?/Todolist/all'];
 			}
-		
-
 	}
 
-	//This method shows all the users todolists.
+	//This method shows all of the current users todolists.
 	public static function all($params){
 		
 		 	$mysqli = DB::getInstance();
 		 	//Checked is used here to see if the user is a premium user. 
 		 	$checked = Todolist::checkifpremium($params);
-		 	//Total dashboard for user is shown.
+		 	//Total Dashboard for user is shown, with overall scores and statistic.
 		 	$dashboard = Todolist::dashboard();
 
 		 	$result = $mysqli->query("
@@ -136,17 +126,17 @@ class Todolist{
 		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
 		 					AND todolist.expiration > NOW()
 		 	  				");
-
  			
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
 
-		 	return ['todolists' => $todolists, 'premium' => $checked, 'dashboard' => $dashboard];
-	}
-	
+		 	return ['todolists' => $todolists, 
+		 			'premium' 	=> $checked, 
+		 			'dashboard' => $dashboard];
+	}	
 
-	//This method deletes listitems
+	//This method deletes a specific listitem
 	public static function deletelistitem($params){
 		
 			$id = $params[0];
@@ -158,87 +148,89 @@ class Todolist{
 
 	 		return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
-	//This method deletes todolists and its items
+
+	//This method deletes selected todolist and its associated items, and "done" items.
 	public static function deletetodolist($params){
 			$mysqli = DB::getInstance();
 			$id = $params[0];
 			$id = $mysqli->real_escape_string($id);
 			$result = $mysqli->multi_query("
-				DELETE FROM todolist WHERE todolist.id = $id;
-				DELETE FROM listitem WHERE listitem.todolist_id = $id;
-				DELETE FROM donelistitem WHERE donelistitem.todolist_id = $id	
-				");
+							DELETE FROM todolist WHERE todolist.id = $id;
+							DELETE FROM listitem WHERE listitem.todolist_id = $id;
+							DELETE FROM donelistitem WHERE donelistitem.todolist_id = $id	
+							");
 
 			return ['redirect' => $_SERVER['HTTP_REFERER']];
 	}
-	//This method puts the listitems into a donelist.
+
+	//This method deletes selected item from DB table "listitem" and inserts it into a DB table "donelist".
 	public static function doneitem($params){
 		
 			$id = $params[0];
 			$mysqli = DB::getInstance();		
 			$result = $mysqli->query("
-				INSERT INTO donelistitem
-				SELECT * FROM listitem
-				WHERE listitem.id = ".$id." ");
+							INSERT INTO donelistitem
+							SELECT * FROM listitem
+							WHERE listitem.id = ".$id."
+							");
 			$query2 = "
-				DELETE FROM listitem where listitem.id = ".$id." "; 
+					DELETE
+					FROM listitem
+					WHERE listitem.id = ".$id." "; 
 
 			$mysqli->query($query2);
 		
 			return ['redirect' => $_SERVER['HTTP_REFERER']];		
 	}
 
-	//This method  checks if the user is premium
+	//This method  checks if the current user is premium.
 	public static function checkifpremium($params){
 		
 			$mysqli = DB::getInstance();			
-			$checktabel = 1; 
-
+			$checkvalue = 1;
 			//$password = crypt($password,'$2a$'.sha1($username));
 
 			$query = "
-				SELECT premium FROM user WHERE  premium = '$checktabel' and user.id = ".$_SESSION['user']['id']."
-				
-			";
+				SELECT premium
+				FROM user
+				WHERE premium = '$checkvalue' 
+				AND user.id = ".$_SESSION['user']['id']."				
+				";
 
 			$result = $mysqli->query($query);
-			$checkresult = $result->fetch_assoc();
-
-						 
+			$checkresult = $result->fetch_assoc();		 
 		 
-		 
-		if($checkresult == TRUE){
-
-			
-			
-				return $checkresult;		
-			 		 				
+		if($checkresult == TRUE){			
+				return $checkresult;			 		 				
 			}
 			
 			return [];
-
-		}
-			//This method checks of the user is a owner of a todolist
-			public static function isowner($userId,$listId){
-			$list = $listId;
-			$mysqli = DB::getInstance();
-			$userId = $mysqli->real_escape_string($userId);
-			$result = $mysqli->query("
-				SELECT * FROM todolist
-				WHERE id = ".$list." AND user_id = ". $userId . " ");
-
-			if($result->num_rows > 0) {
-			return true;
-			} else {
-				return false;
-
-			}	
 	}
-	//This method for printing out all the Dashboard items
+
+	//This method checks if the current user is the owner of a todolist.
+	public static function isowner($userId,$listId){
+
+	$list = $listId;
+	$mysqli = DB::getInstance();
+	$userId = $mysqli->real_escape_string($userId);
+	$result = $mysqli->query("
+					SELECT * FROM todolist
+					WHERE id = ".$list." 
+					AND user_id = ". $userId . " 
+					");
+
+		if($result->num_rows > 0) {
+		return true;
+		} else {
+		return false;
+		}	
+	}
+
+	//This method for printing out the Dashboard, with statistics regarding the current users Todolists.
 	public static function dashboard(){
 			$mysqli = DB::getInstance();
 		 	
-		 	# TOTAL SCORE FROM CURRENT USER:
+		 	// Total score from current user.
 		 	$result1 = $mysqli->query("
 		 					SELECT SUM(score) as totalscore
 							FROM donelistitem, todolist, user
@@ -246,9 +238,7 @@ class Todolist{
 							AND todolist.user_id = user.id
 							AND user.id = ".$_SESSION['user']['id']."
 		 					");
-
-
-
+		 	// Total score from list type "day".
 		 	$result2 = $mysqli->query("
 							SELECT SUM(score) as DailyScore
 							FROM donelistitem, todolist, user
@@ -257,6 +247,7 @@ class Todolist{
 							AND todolist.user_id = user.id
 							AND user.id = ".$_SESSION['user']['id']."
 		 					");
+		 	// Total score from list type "week".
 		 	$result3 = $mysqli->query("
 							SELECT SUM(score) as WeeklyScore
 							FROM donelistitem, todolist, user
@@ -265,6 +256,7 @@ class Todolist{
 							AND todolist.user_id = user.id
 							AND user.id = ".$_SESSION['user']['id']."
 		 					");
+		 	// Total score from list type "month".
 		 	$result4 = $mysqli->query("
 							SELECT SUM(score) as MonthlyScore
 							FROM donelistitem, todolist, user
@@ -278,34 +270,37 @@ class Todolist{
 		 	$dash2 = $result2->fetch_assoc();
 		 	$dash3 = $result3->fetch_assoc();
 		 	$dash4 = $result4->fetch_assoc();
-		 	return ['result1' => $dash1, 'result2' => $dash2, 'result3' => $dash3, 'result4' => $dash4]; 
+
+		 	return ['result1' => $dash1, 
+		 			'result2' => $dash2, 
+		 			'result3' => $dash3, 
+		 			'result4' => $dash4]; 
 	}
-	//This method for printing the dashboarditems in single. 
+
+	//This method for printing the statistics for a single Todolist. 
 	public static function dashboardsingle($id){
 		
 			$mysqli = DB::getInstance();
 		 	$id = $mysqli->real_escape_string($id);
-		 	# TOTAL SCORE FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
+		 	// Total score from current list.
 		 	$result1 = $mysqli->query("
 		 					SELECT SUM(score) as doneScore
 							FROM donelistitem, todolist
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.id = ".$id."
-		 					");
-		 	
-		 	# TOTAL NUMBER OF LISTITEMS FROM CURRENT LIST: OBS, byt ut $id !!!!!!!!!
+		 					");		 	
+		 	// Total number of listitems from current list.
 		 	$result2 = $mysqli->query("
 							SELECT COUNT(listitem.id) as UnfinishedItems
 							FROM listitem, todolist
 							WHERE listitem.todolist_id = todolist.id
 							AND todolist.id = ".$id."
-		 					");
-		 	
+		 					");		 	
 		 	
 		 	$singledash1 = $result1->fetch_assoc();
 		 	$singledash2 = $result2->fetch_assoc();
 		 	
-		 	return ['result1' => $singledash1, 'result2' => $singledash2]; 
+		 	return ['result1' => $singledash1, 
+		 			'result2' => $singledash2]; 
 	}
-
 }

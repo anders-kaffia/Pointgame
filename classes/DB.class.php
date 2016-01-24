@@ -1,5 +1,5 @@
 <?php
-
+// Creates a connection to the database
 class DB{
 	
 	private static $instance;

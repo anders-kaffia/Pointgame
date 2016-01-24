@@ -3,20 +3,19 @@
     <div class="row">
         <div class="col-lg-12 text-center ">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-12 "><h3><a href="#">Completed Items:</a> </h3>
-                        {% for donelistitem in donelistitems %}
+                <div class="col-lg-12 "><h3><a href="#">Completed Items:</a> </h3>
+                    {% for donelistitem in donelistitems %}
                         {% include "showdoneitems.html" %}
-                        {% endfor %}              
-                    <br>           
-                    </div>           
-                </div>
-                    <h1 ><a placeholder="Add item to list!" href='?/Todolist/single/{{todolist.id}}'>{{todolist.name}}</a></h1>
+                    {% endfor %}              
+                    <br>                           
+                    <h1><a placeholder="Add item to list!" href='?/Todolist/single/{{todolist.id}}'>{{todolist.name}}</a></h1>
                     <hr class="star-primary">
-                    <div class="row">
-                    <div class="col-lg-12">               
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">               
                     {% for listitem in listitems %}
-					{% include "showlistitems.html" %}
+					   {% include "showlistitems.html" %}
 					{% endfor %}			
                 </div>           
             </div>
@@ -30,28 +29,28 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-7 col-xs-offset-3 floating-label-form-group controls">
-                            <label>Points</label>
-                            <input  type="text" name='createpoints' class="form-control" placeholder="Points" id="email">
-                            <p class="help-block text-danger"></p>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-7 col-xs-offset-3 floating-label-form-group controls">
+                                <label>Points</label>
+                                <input  type="text" name='createpoints' class="form-control" placeholder="Points" id="email">
+                                <p class="help-block text-danger"></p>
+                            </div>
                         </div>
-                    </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <input type='hidden' name='todolist_id' value='{{todolist.id}}'>
                             </div>
                         </div>
-                    <br>
-                        <div></div>
-                    <div class="row">
-                        <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg">Add item to list</button>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg">Add item to list</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                 {% include "dashboardsingel.html" %} 
-            <h1><a href='?/Todolist/all'>Back</a></h1>
+                    </form>
+                    {% include "dashboardsingel.html" %} 
+                    <h1><a href='?/Todolist/all'>Back</a></h1>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,8 +1,7 @@
 <?php
 class Generic {
 
-	//This class is used for rendering other pages in Twig. 
-
+	//This class is used for rendering templates, other than index.html, in Twig.
 
 	public static function aboutGoatTeam($params){
 		return ['template' => 'aboutGoatTeam.html'];
