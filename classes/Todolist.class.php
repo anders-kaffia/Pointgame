@@ -47,7 +47,7 @@ class Todolist{
 			$post_id = $mysqli->real_escape_string($_POST['todolist_id']);
 
 			//Prevents "name" input field from being empty. 
-			if ($task != NULL) {
+			if ($task && $score != NULL) {
 			$query = "
 				INSERT INTO listitem
 				(task, score, todolist_id) 
