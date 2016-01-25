@@ -44,8 +44,10 @@
             {% endif %}  
             <!-- Creates new Todolist -->
             {% include "createtodolist.html" %}        
-            <!-- Shows total score for current user -->        
+            <!-- Shows total score for current user -->
+            {% if premium %}        
             {% include "dashboard.html" %}
+            {% endif %}
             <!-- Tips Section -->
             {% include "tips.html" %}
             <!-- Footer Section -->
