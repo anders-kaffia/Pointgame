@@ -210,14 +210,14 @@ class Todolist{
 	//This method checks if the current user is the owner of a todolist.
 	public static function isOwner($userId,$listId){
 
-	$list = $listId;
-	$mysqli = DB::getInstance();
-	$userId = $mysqli->real_escape_string($userId);
-	$result = $mysqli->query("
-					SELECT * FROM todolist
-					WHERE id = ".$list." 
-					AND user_id = ". $userId . " 
-					");
+		$list = $listId;
+		$mysqli = DB::getInstance();
+		$userId = $mysqli->real_escape_string($userId);
+		$result = $mysqli->query("
+						SELECT * FROM todolist
+						WHERE id = ".$list." 
+						AND user_id = ". $userId . " 
+						");
 
 		if($result->num_rows > 0) {
 		return true;
