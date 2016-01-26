@@ -22,7 +22,7 @@ if(count($url_parts)>=2) {
 		$template = $data['template'];
     }	
 	//Create session for the User. 
-	$data['user'] = $_SESSION['user']; 
+		$data['user'] = $_SESSION['user']; 
 
 	//Render Twig with the template and data. 
 	echo $twig->render($template, $data);

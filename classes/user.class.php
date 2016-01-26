@@ -15,7 +15,7 @@ class User{
 			$password = $mysqli->real_escape_string($_POST['password']);
 			// Sets all new users to "freemium", i.e not "premium".		
 			$premiumstartvalue = NULL;
-
+			$password = crypt($password,'$2a$'.sha1($username));
 			// All fields HAS to have value, != null.
 			if ($firstname && $lastname && $email && $username && $password != null) {
 			$query = "
@@ -57,7 +57,7 @@ class User{
 			$mysqli = DB::getInstance();			
 			$username = $mysqli->real_escape_string($_POST['username']);
 			$password = $mysqli->real_escape_string($_POST['password']);
-			//$password = crypt($password,'$2a$'.sha1($username));
+			$password = crypt($password,'$2a$'.sha1($username));
 
 			$query = "
 				SELECT id, username
