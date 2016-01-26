@@ -37,11 +37,11 @@ class User{
 	public static function premiumSuccess($params){
 
 			$mysqli = DB::getInstance();
-			$_SESSION['user']['id'] = $mysqli->real_escape_string($_SESSION['user']['id']);
+			$cleanUserId = $mysqli->real_escape_string($_SESSION['user']['id']);
 			$query = "
 				UPDATE user
 				SET premium = 1
-				WHERE user.id = ".$_SESSION['user']['id']."
+				WHERE user.id = ".$cleanUserId."
 				";
 
 			$mysqli->query($query);

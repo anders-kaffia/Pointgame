@@ -10,6 +10,7 @@ class Todolist{
 			$mysqli = DB::getInstance();
 			$todoname = $mysqli->real_escape_string($_POST['createtodolist']);
 			$type = $mysqli->real_escape_string($_POST['todolisttype']);
+			$cleanUserId = $mysqli->real_escape_string($_SESSION['user']['id']);
 
 
 			//If statement for choosing list type (day/week/monthly) list.
@@ -29,7 +30,7 @@ class Todolist{
 			$query = "
 					INSERT INTO todolist
 					(name, user_id, type, expiration)
-					VALUES ('$todoname', ".$_SESSION['user']['id'].", '$type', now() + INTERVAL 1 ".$interval." ) ";
+					VALUES ('$todoname', ".$cleanUserId.", '$type', now() + INTERVAL 1 ".$interval." ) ";
 
 				$mysqli->query($query);
 			}		
@@ -52,7 +53,7 @@ class Todolist{
 				INSERT INTO listitem
 				(task, score, todolist_id) 
 				VALUES ('$task', '$score', $post_id)
-			";
+				";
 
 			$mysqli->query($query);
 
@@ -120,10 +121,11 @@ class Todolist{
 		 	$checked = Todolist::checkIfPremium($params);
 		 	//Total Dashboard for user is shown, with overall scores and statistic.
 		 	$dashboard = Todolist::dashboard();
+		 	$cleanUserId = $mysqli->real_escape_string($_SESSION['user']['id']);
 
 		 	$result = $mysqli->query("
 		 					SELECT * FROM todolist
-		 					WHERE todolist.user_id = ".$_SESSION['user']['id']."
+		 					WHERE todolist.user_id = ".$cleanUserId."
 		 					AND todolist.expiration > NOW()
 		 	  				");
  			
@@ -176,7 +178,8 @@ class Todolist{
 			$query2 = "
 					DELETE
 					FROM listitem
-					WHERE listitem.id = ".$id." "; 
+					WHERE listitem.id = ".$id." 
+					"; 
 
 			$mysqli->query($query2);
 		
@@ -189,12 +192,13 @@ class Todolist{
 			$mysqli = DB::getInstance();			
 			$checkvalue = 1;
 			//$password = crypt($password,'$2a$'.sha1($username));
+			$cleanUserId = $mysqli->real_escape_string($_SESSION['user']['id']);
 
 			$query = "
 				SELECT premium
 				FROM user
 				WHERE premium = '$checkvalue' 
-				AND user.id = ".$_SESSION['user']['id']."				
+				AND user.id = ".$cleanUserId."				
 				";
 
 			$result = $mysqli->query($query);
@@ -229,6 +233,7 @@ class Todolist{
 	//This method for printing out the Dashboard, with statistics regarding the current users Todolists.
 	public static function dashboard(){
 			$mysqli = DB::getInstance();
+			$cleanUserId = $mysqli->real_escape_string($_SESSION['user']['id']);
 		 	
 		 	// Total score from current user.
 		 	$result1 = $mysqli->query("
@@ -236,7 +241,7 @@ class Todolist{
 							FROM donelistitem, todolist, user
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.user_id = user.id
-							AND user.id = ".$_SESSION['user']['id']."
+							AND user.id = ".$cleanUserId."
 		 					");
 		 	// Total score from list type "day".
 		 	$result2 = $mysqli->query("
@@ -245,7 +250,7 @@ class Todolist{
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.type = 'day'
 							AND todolist.user_id = user.id
-							AND user.id = ".$_SESSION['user']['id']."
+							AND user.id = ".$cleanUserId."
 		 					");
 		 	// Total score from list type "week".
 		 	$result3 = $mysqli->query("
@@ -254,7 +259,7 @@ class Todolist{
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.type = 'week'
 							AND todolist.user_id = user.id
-							AND user.id = ".$_SESSION['user']['id']."
+							AND user.id = ".$cleanUserId."
 		 					");
 		 	// Total score from list type "month".
 		 	$result4 = $mysqli->query("
@@ -263,7 +268,7 @@ class Todolist{
 							WHERE donelistitem.todolist_id = todolist.id
 							AND todolist.type = 'month'
 							AND todolist.user_id = user.id
-							AND user.id = ".$_SESSION['user']['id']."
+							AND user.id = ".$cleanUserId."
 		 					");
 		 	
 		 	$dash1 = $result1->fetch_assoc();
