@@ -91,17 +91,19 @@ class Todolist{
 	public static function all($params){
 			#17. Värdet som kommer ut här som $params är $url_parts som vi skickade in från index.php. ($params kan heta vad somhelst.)
 		 	$mysqli = DB::getInstance();
-		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."  ");
+		 	$deleteexpireddates = $mysqli->query("DELETE FROM todolist WHERE  
+		 										todolist.user_id = ".$_SESSION['user']['id']." and expiration < NOW()");
+		 	$result = $mysqli->query(" SELECT * FROM todolist where todolist.user_id = ".$_SESSION['user']['id']."
+		 					 	
+		 	  ");
 
-
-		 	
 
 
 		 	while($todolist = $result->fetch_assoc()){
 		 		$todolists[] = $todolist;
 		 	}
 
-		 	return ['todolists' => $todolists, 'exp' => $exp];
+		 	return ['todolists' => $todolists];
 		
 	}
 	
